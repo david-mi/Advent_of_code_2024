@@ -1,31 +1,23 @@
-import { inputExample } from "./inputs/input_example";
 import { input } from "./inputs/input";
 import { setInputLinesToArray } from "../../helpers";
 
-const lists = setInputLinesToArray(input);
+const inputLines = setInputLinesToArray(input);
 
-const parsedLists = lists.map((line) => {
-  return line
-    .split(/\s+/)
-    .map(Number);
-});
+function getNumbersLists(inputLines: string[]) {
+  return inputLines.reduce<[number[], number[]]>(([leftNumbersList, rightNumbersList], inputLine) => {
+    const [leftNumberToString, rightNumberToString] = inputLine.match(/\d+/g)!;
 
-function getListsInAscendingOrder(lists: number[][]) {
-  const leftNumbersList: number[] = [];
-  const rightNumbersList: number[] = [];
+    leftNumbersList.push(Number(leftNumberToString));
+    rightNumbersList.push(Number(rightNumberToString));
 
-  lists.forEach(([leftNumber, rightNumber]) => {
-    leftNumbersList.push(leftNumber as number);
-    rightNumbersList.push(rightNumber as number);
-  });
-
-  const leftNumbersListInAscendingOrder = leftNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
-  const rightNumbersListInAscendingOrder = rightNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
-
-  return { leftNumbersListInAscendingOrder, rightNumbersListInAscendingOrder };
+    return [leftNumbersList, rightNumbersList];
+  }, [[], []]);
 }
 
-const { leftNumbersListInAscendingOrder, rightNumbersListInAscendingOrder } = getListsInAscendingOrder(parsedLists);
+const [leftNumbersList, rightNumbersList] = getNumbersLists(inputLines);
+
+const leftNumbersListInAscendingOrder = leftNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
+const rightNumbersListInAscendingOrder = rightNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
 
 function getTotalDistanceBetweenLists(leftNumbersList: number[], rightNumbersList: number[]): number {
   return rightNumbersList.reduce((totalDistanceBetweenLists, rightNumber, index) => {
@@ -33,5 +25,7 @@ function getTotalDistanceBetweenLists(leftNumbersList: number[], rightNumbersLis
   }, 0);
 }
 
-const totalDistanceBetweenLists = getTotalDistanceBetweenLists(leftNumbersListInAscendingOrder, rightNumbersListInAscendingOrder);
-debugger;
+export const day01PartOneSolution = getTotalDistanceBetweenLists(
+  leftNumbersListInAscendingOrder,
+  rightNumbersListInAscendingOrder
+);
