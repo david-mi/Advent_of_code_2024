@@ -1,23 +1,31 @@
+import { inputExample } from "./inputs/input_example";
 import { input } from "./inputs/input";
 import { setInputLinesToArray } from "../../helpers";
 
-const inputLines = setInputLinesToArray(input);
+const lists = setInputLinesToArray(input);
 
-function getNumbersLists(inputLines: string[]) {
-  return inputLines.reduce<[number[], number[]]>(([leftNumbersList, rightNumbersList], inputLine) => {
-    const [leftNumberToString, rightNumberToString] = inputLine.match(/\d+/g)!;
+const parsedLists = lists.map((line) => {
+  return line
+    .split(/\s+/)
+    .map(Number);
+});
 
-    leftNumbersList.push(Number(leftNumberToString));
-    rightNumbersList.push(Number(rightNumberToString));
+function getListsInAscendingOrder(lists: number[][]) {
+  const leftNumbersList: number[] = [];
+  const rightNumbersList: number[] = [];
 
-    return [leftNumbersList, rightNumbersList];
-  }, [[], []]);
+  lists.forEach(([leftNumber, rightNumber]) => {
+    leftNumbersList.push(leftNumber as number);
+    rightNumbersList.push(rightNumber as number);
+  });
+
+  const leftNumbersListInAscendingOrder = leftNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
+  const rightNumbersListInAscendingOrder = rightNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
+
+  return { leftNumbersListInAscendingOrder, rightNumbersListInAscendingOrder };
 }
 
-const [leftNumbersList, rightNumbersList] = getNumbersLists(inputLines);
-
-const leftNumbersListInAscendingOrder = leftNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
-const rightNumbersListInAscendingOrder = rightNumbersList.sort((nextNumber, previousNumber) => nextNumber - previousNumber);
+const { leftNumbersListInAscendingOrder, rightNumbersListInAscendingOrder } = getListsInAscendingOrder(parsedLists);
 
 function getTotalDistanceBetweenLists(leftNumbersList: number[], rightNumbersList: number[]): number {
   return rightNumbersList.reduce((totalDistanceBetweenLists, rightNumber, index) => {
