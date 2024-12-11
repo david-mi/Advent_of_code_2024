@@ -50,4 +50,3 @@ function countSafeReports(reports: number[][]) {
 }
 
 export const day02PartOneSolution = countSafeReports(reports);
-debugger;
