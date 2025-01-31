@@ -25,7 +25,8 @@
     "d5p1": "tsx watch ./src/day_05/part_one/solution.ts",
     "d5p2": "tsx watch ./src/day_05/part_two/solution.ts",
     "d6p1": "tsx watch ./src/day_06/part_one/solution.ts",
-    "d6p1r": "tsx watch ./src/day_06/part_one/solution_refacto.ts"
+    "d6p1r": "tsx watch ./src/day_06/part_one/solution_refacto.ts",
+    "d9p1": "tsx watch ./src/day_09/part_one/solution.ts"
   },
   "keywords": [],
   "author": "",
