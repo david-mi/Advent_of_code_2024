@@ -32,7 +32,8 @@
     "d10p1": "tsx watch ./src/day_10/part_one/solution.ts",
     "d10p2": "tsx watch ./src/day_10/part_two/solution.ts",
     "d11p1": "tsx watch ./src/day_11/part_one/solution.ts",
-    "d11p2w": "tsx watch ./src/day_11/part_two/solution_wrong.ts"
+    "d11p2w": "tsx watch ./src/day_11/part_two/solution_wrong.ts",
+    "d11p2": "tsx watch ./src/day_11/part_two/solution.ts"
   },
   "keywords": [],
   "author": "",
